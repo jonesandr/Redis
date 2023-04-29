@@ -1,55 +1,54 @@
-
 import redis
 
 r = redis.Redis(host='localhost', port=6379, db=0)
 
-def ingresar_palabra():
-    palabra = input("ingresar palabra: ")
-    significado = input("ingresar significado: ")
-    r.set(palabra, significado)
+def add_word():
+    word = input("Enter the word: ")
+    meaning = input("Enter the meaning: ")
+    r.set(word, meaning)
 
-def buscar_palabra():
-    palabra = input("ingrese palabra para buscar significado: ")
-    significado = r.get(palabra)
-    if significado:
-        print(significado.decode("utf-8"))
+def search_word():
+    word = input("Enter the word to search for its meaning: ")
+    meaning = r.get(word)
+    if meaning:
+        print(meaning.decode("utf-8"))
     else:
-        print("esta palabra no existe  ")
+        print("This word does not exist")
 
-def eliminar_palabra():
-    palabra = input("eliminar palabra: ")
-    r.delete(palabra)
+def delete_word():
+    word = input("Enter the word to delete: ")
+    r.delete(word)
 
-def lista_palabra():
-    palabras = r.keys("*")
-    for palabra in palabras:
-        print(palabra.decode("utf-8"))
+def list_words():
+    words = r.keys("*")
+    for word in words:
+        print(word.decode("utf-8"))
 
-def editar_palabra():
-    palabra = input("palabra a editar: ")
-    significado = input("nuevo significado: ")
-    r.set(palabra, significado)
+def edit_word():
+    word = input("Enter the word to edit: ")
+    meaning = input("Enter the new meaning: ")
+    r.set(word, meaning)
 
 while True:
     print("\n......MENU.......\n")
-    print("1. ingresar palabra")
-    print("2. buscar palabra")
-    print("3. eliminar palabra")
-    print("4. lista de palabras")
-    print("5. editar palabra")
-    print("6. salir")
-    choice = int(input("ingrese opcion: "))
+    print("1. Add a word")
+    print("2. Search for a word")
+    print("3. Delete a word")
+    print("4. List all words")
+    print("5. Edit a word")
+    print("6. Exit")
+    choice = int(input("Enter your choice: "))
     if choice == 1:
-        ingresar_palabra()
+        add_word()
     elif choice == 2:
-        buscar_palabra()
+        search_word()
     elif choice == 3:
-        eliminar_palabra()
+        delete_word()
     elif choice == 4:
-        lista_palabra()
+        list_words()
     elif choice == 5:
-        editar_palabra()
+        edit_word()
     elif choice == 6:
         break
     else:
-        print("opcion no existe")
+        print("Invalid choice")
